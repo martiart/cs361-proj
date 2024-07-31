@@ -115,21 +115,21 @@ class BookTracker:
 		# menu prompts for account management
 		print()
 		print("Welcome to account management. Select from the choices below!")
-		print("1. Edit username")
-		print("2. Delete Account")
-		print("3. Return to Main Menu")
+		# print("1. Edit username")
+		print("1. Delete Account")
+		print("2. Return to Main Menu")
 		user_choice = int(input("Enter number option: "))
 
 		while True:
 			try:
-				if user_choice == 1:  # edit name
-					user_name = self.edit_user_name(user_name)
-					return user_name
-				elif user_choice == 2:  # delete account
+				# if user_choice == 1:  # edit name
+				# 	user_name = self.edit_user_name(user_name)
+				# 	return user_name
+				if user_choice == 1:  # delete account
 					user_name = self.delete_account(user_name)
 					return -1
-				elif user_choice == 3:  # return to main menu
-					pass
+				elif user_choice == 2:  # return to main menu
+					return
 			except TypeError as e:
 				print("You entered an invalid option. Try again!")
 
@@ -139,8 +139,11 @@ class BookTracker:
 		:param user_name: current username
 		:return: new username if succesfully changed
 		"""
+		data = self.get_data()
+		accounts = data['accounts']
 		#iterate through json
-		for account in self.get_data()['accounts']:
+		print(user_name)
+		for account in accounts:
 			if account['username'] == user_name:
 				print()
 				new_name = input("Enter your new username: ")
@@ -158,7 +161,7 @@ class BookTracker:
 		:param user_name: name of user requesting delete account
 		:return: -1 if the account was deleted
 		"""
-		print()
+
 		# iterate through json with enumerate for index
 		for i, account in enumerate(self.get_data()['accounts']):
 			if account['username'] == user_name:
